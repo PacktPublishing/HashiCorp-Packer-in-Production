@@ -5,7 +5,7 @@ source "virtualbox-iso" "hello-base" {
   boot_command            = ["<esc><wait>", "vmlinuz initrd=initrd.img ", "inst.ks=https://github.com/jboero/hashistack/raw/master/http/ks-centosStreams.cfg", "<enter>"]
   boot_wait               = "3s"
   communicator            = "ssh"
-  cpus                    = 8
+  cpus                    = 4
   disk_size               = 100000
   guest_additions_mode    = "attach"
   guest_additions_sha256  = "62a0c6715bee164817a6f58858dec1d60f01fd0ae00a377a75bbf885ddbd0a61"
