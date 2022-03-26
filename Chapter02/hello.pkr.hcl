@@ -29,10 +29,10 @@ source "virtualbox-iso" "hello-base" {
 
 // Define a build with our single source builder and one provisioner.
 build {
- sources = ["source.virtualbox-iso.hello-base"]
- provisioner "file" {
-   destination = "/etc/motd"
-   direction   = "upload"
-   content     = "Hello world from Packer."
- }
+  sources = ["source.virtualbox-iso.hello-base"]
+  provisioner "file" {
+    destination = "/etc/motd"
+    direction   = "upload"
+    content     = "Hello world from Packer."
+  }
 }
