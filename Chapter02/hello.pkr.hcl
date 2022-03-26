@@ -33,6 +33,6 @@ build {
   provisioner "file" {
     destination = "/etc/motd"
     direction   = "upload"
-    content     = "Hello world from Packer."
+    source      = "motd"
   }
 }
