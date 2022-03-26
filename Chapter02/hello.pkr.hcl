@@ -23,7 +23,7 @@ source "virtualbox-iso" "hello-base" {
   ssh_timeout             = "20m"
   vm_name                 = "hello-world"
   vboxmanage = [
-      [ "modifyvm", "{{.Name}}", "--paravirtprovider=kvm" ],
+    #[ "modifyvm", "{{.Name}}", "--paravirtprovider=kvm" ],
  ]
 }
 
