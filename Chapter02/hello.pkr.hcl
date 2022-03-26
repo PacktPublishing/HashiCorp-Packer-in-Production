@@ -27,7 +27,7 @@ source "virtualbox-iso" "hello-base" {
  ]
 }
 
-// Define a build with our single source builder and two provisioners.
+// Define a build with our single source builder and one provisioner.
 build {
  sources = ["source.virtualbox-iso.hello-base"]
  provisioner "file" {
