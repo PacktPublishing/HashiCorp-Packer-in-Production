@@ -12,6 +12,11 @@ source "virtualbox-iso" "hello-base" {
   guest_additions_url     = "https://download.virtualbox.org/virtualbox/6.1.10/VBoxGuestAdditions_6.1.10.iso"
   guest_os_type           = "RedHat_64"
   headless                = false
+    
+  // Checksums can be directly listed here or pulled from a file or URL
+  // Using a URL simplifies things for changing upstreams but risks a compromised checksum
+  // Use consistency and make sure any URLs can be trusted for security.
+  // Also during development omitting checksum will save time.
   iso_checksum            = "file:https://lon.mirror.rackspace.com/centos-stream/9-stream/BaseOS/x86_64/iso/CentOS-Stream-9-latest-x86_64-dvd1.iso.SHA256SUM"
   iso_url                 = "https://lon.mirror.rackspace.com/centos-stream/9-stream/BaseOS/x86_64/iso/CentOS-Stream-9-latest-x86_64-dvd1.iso"
   memory                  = 1024
@@ -23,6 +28,7 @@ source "virtualbox-iso" "hello-base" {
   ssh_timeout             = "20m"
   vm_name                 = "hello-world"
   vboxmanage = [
+    // Optionally put vboxmanage customization here.
     #[ "modifyvm", "{{.Name}}", "--paravirtprovider=kvm" ],
  ]
 }
@@ -33,6 +39,12 @@ build {
   provisioner "file" {
     destination = "/etc/motd"
     direction   = "upload"
+
+    // Reference the local file "./motd" which must exist.  Relative or absolute path supported.
     source      = "motd"
+      
+    // File supports two options: contents for direct string or source for loading a file.
+    // Contents also supports herefile syntax.
+    # contents    = "This is an example of directly defined file content"
   }
 }
