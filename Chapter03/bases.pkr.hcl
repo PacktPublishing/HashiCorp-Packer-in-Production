@@ -60,15 +60,31 @@ source "virtualbox-iso" "hello-base-streams-ovf" {
 
 source "qemu" "hello-base-streams" {
   accelerator = "kvm"
-  headless = true
+  #headless = true
+  cpus = 4
   memory = 4096
   disk_size = "10G"
-  ssh_username = "root"
+
   iso_url      = var.streams_iso.url
   iso_checksum = var.streams_iso.shasum
-  output_filename = "base-streams.qcow2"
-  qemuargs =[
+  output_directory = "/aux/qemu/packer"
+  qemuargs = []
+
+  ssh_username = "root"
+  ssh_password = "kickstartpassword",
+  ssh_timeout = "20m",
+  vm_name = "tdhtest",
+  net_device = "virtio-net",
+  disk_interface = "virtio",
+  boot_wait = "10s",
+  boot_command = [
+    "<tab> text ks=https://raw.githubusercontent.com/PacktPublishing/HashiCorp-Packer-in-Production/main/Chapter03/ks-centosStreams.cfg<enter><wait>"
   ]
+  
+  communicator = "ssh"
+  ssh_certificate_file = <<EOF
+  TEST
+  EOF
 }
 
 source "virtualbox-iso" "hello-base-ubuntu-ovf" {
@@ -176,9 +192,9 @@ build {
  sources = [
    #"source.virtualbox-iso.hello-base-streams",
    #"source.virtualbox-iso.hello-base-ubuntu",
-   "source.virtualbox-iso.hello-base-windows-server",
+   #"source.virtualbox-iso.hello-base-windows-server",
    #"source.qemu.base-aarch64",
-   #"source.qemu.hello-base-streams"
+   "source.qemu.hello-base-streams"
    ]
  provisioner "file" {
    destination = "/etc/motd"
