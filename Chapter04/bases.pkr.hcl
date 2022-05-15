@@ -66,23 +66,22 @@ source "qemu" "hello-base-streams" {
   disk_size = "10G"
 
   iso_url      = var.streams_iso.url
-  #iso_checksum = var.streams_iso.shasum
+  iso_checksum = var.streams_iso.shasum
   output_directory = "/aux/qemu/packer"
-  vm_name = "tdhtest"
-  net_device = "virtio-net"
-  disk_interface = "virtio"
   qemuargs = []
-  boot_wait = "10s"
-  boot_key_interval = "25ms"
-  boot_command = [
-    "<tab> text ks=https://raw.githubusercontent.com/PacktPublishing/HashiCorp-Packer-in-Production/main/Chapter04/ks-centosStreams.cfg<enter><wait>"
-  ]
 
-  # Communicator
-  communicator = "ssh"
   ssh_username = "root"
   ssh_password = "kickstartpassword"
   ssh_timeout = "20m"
+  vm_name = "tdhtest"
+  net_device = "virtio-net"
+  disk_interface = "virtio"
+  boot_wait = "10s"
+  boot_command = [
+    "<tab> text ks=https://raw.githubusercontent.com/PacktPublishing/HashiCorp-Packer-in-Production/main/Chapter03/ks-centosStreams.cfg<enter><wait>"
+  ]
+  
+  communicator = "ssh"
   ssh_certificate_file = <<EOF
   TEST
   EOF
