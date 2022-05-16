@@ -83,7 +83,7 @@ source "qemu" "hello-base-streams" {
   boot_wait = "1s"
   boot_key_interval = "25ms"
   boot_command = [
-    "<tab> inst.ks=https://raw.githubusercontent.com/PacktPublishing/HashiCorp-Packer-in-Production/main/Chapter04/ks-centosStreams.cfg<enter><wait>"
+    "<tab> inst.ks=https://raw.githubusercontent.com/PacktPublishing/HashiCorp-Packer-in-Production/main/Chapter04/ks-centosStreams9.cfg<enter><wait>"
   ]
 
   # Communicator
