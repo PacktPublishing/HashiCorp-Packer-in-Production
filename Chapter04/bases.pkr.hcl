@@ -61,27 +61,36 @@ source "virtualbox-iso" "hello-base-streams-ovf" {
 source "qemu" "hello-base-streams" {
   accelerator = "kvm"
   #headless = true
-  cpus = 4
+  cpus = 8
   memory = 4096
   disk_size = "10G"
 
-  iso_url      = var.streams_iso.url
-  iso_checksum = var.streams_iso.shasum
-  output_directory = "/aux/qemu/packer"
-  qemuargs = []
+  #disk_image    = true
+  #iso_url		   = "file:///aux/kvm/CentOS-Stream-GenericCloud-9-20220509.0.x86_64.qcow2"
+  #iso_url       = "file:///aux/iso/rhel-baseos-9.0-beta-0-x86_64-dvd.iso"
+  #iso_url       = var.streams_iso.url
+  iso_url       = "http://lon.mirror.rackspace.com/centos-stream/9-stream/BaseOS/x86_64/iso/CentOS-Stream-9-20220509.0-x86_64-boot.iso"
+  
+  iso_checksum = "none"
+  #iso_checksum = var.streams_iso.shasum
 
-  ssh_username = "root"
-  ssh_password = "kickstartpassword"
-  ssh_timeout = "20m"
+  # For maximum build speed, use TMPFS if you have enough RAM.
+  output_directory = "/tmp/packer"
   vm_name = "tdhtest"
   net_device = "virtio-net"
   disk_interface = "virtio"
-  boot_wait = "10s"
+  qemuargs = [["-cpu", "host"]]
+  boot_wait = "1s"
+  boot_key_interval = "25ms"
   boot_command = [
-    "<tab> text ks=https://raw.githubusercontent.com/PacktPublishing/HashiCorp-Packer-in-Production/main/Chapter03/ks-centosStreams.cfg<enter><wait>"
+    "<tab> inst.ks=https://raw.githubusercontent.com/PacktPublishing/HashiCorp-Packer-in-Production/main/Chapter04/ks-centosStreams.cfg<enter><wait>"
   ]
-  
+
+  # Communicator
   communicator = "ssh"
+  ssh_username = "root"
+  ssh_password = "kickstartpassword"
+  ssh_timeout = "60m"
   ssh_certificate_file = <<EOF
   TEST
   EOF
@@ -120,7 +129,7 @@ source "virtualbox-iso" "hello-base-ubuntu-ovf" {
 source "virtualbox-iso" "hello-base-windows-server" {
   boot_command            = [
         "<enter><enter><f6><esc><wait> ",
-        "autoinstall ds=nocloud-net",#;seedfrom=http://{{ .HTTPIP }}:{{ .HTTPPort }}/",
+        "autoinstall ds=nocloud-net,#;seedfrom=http://{{ .HTTPIP }}:{{ .HTTPPort }}/",
         "<enter><wait>"
       ]
   boot_wait               = "3s"

@@ -72,10 +72,9 @@ source "qemu" "hello-base-streams" {
   net_device = "virtio-net"
   disk_interface = "virtio"
   qemuargs = []
-  boot_wait = "10s"
-  boot_key_interval = "25ms"
+  boot_wait = "4s"
   boot_command = [
-    "<tab> text ks=https://raw.githubusercontent.com/PacktPublishing/HashiCorp-Packer-in-Production/main/Chapter04/ks-centosStreams.cfg<enter><wait>"
+    "<tab> inst.text ks=https://raw.githubusercontent.com/PacktPublishing/HashiCorp-Packer-in-Production/main/Chapter04/ks-centosStreams.cfg<enter><wait>"
   ]
 
   # Communicator
