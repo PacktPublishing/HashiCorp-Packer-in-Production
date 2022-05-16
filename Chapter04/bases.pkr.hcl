@@ -69,19 +69,20 @@ source "qemu" "hello-base-streams" {
   #iso_url		   = "file:///aux/kvm/CentOS-Stream-GenericCloud-9-20220509.0.x86_64.qcow2"
   #iso_url       = "file:///aux/iso/rhel-baseos-9.0-beta-0-x86_64-dvd.iso"
   #iso_url       = var.streams_iso.url
-  iso_url       = "http://lon.mirror.rackspace.com/centos-stream/9-stream/BaseOS/x86_64/iso/CentOS-Stream-9-20220509.0-x86_64-boot.iso"
-  
-  iso_checksum = "none"
+  #iso_url       = "https://cloud.centos.org/centos/9-stream/x86_64/images/CentOS-Stream-GenericCloud-9-20220509.0.x86_64.iso"
+  iso_url        = "file:///aux/iso/CentOS-Streams-9.iso"
+
   #iso_checksum = var.streams_iso.shasum
+  iso_checksum = "none"
 
   # For maximum build speed, use TMPFS if you have enough RAM.
-  output_directory = "/tmp/packer"
+  output_directory = "/aux/packer/base"
   vm_name = "tdhtest"
   net_device = "virtio-net"
   disk_interface = "virtio"
   qemuargs = [["-cpu", "host"]]
   boot_wait = "1s"
-  boot_key_interval = "25ms"
+  boot_key_interval = "10ms"
   boot_command = [
     "<tab> inst.ks=https://raw.githubusercontent.com/PacktPublishing/HashiCorp-Packer-in-Production/main/Chapter04/ks-centosStreams9.cfg<enter><wait>"
   ]
@@ -89,11 +90,11 @@ source "qemu" "hello-base-streams" {
   # Communicator
   communicator = "ssh"
   ssh_username = "root"
-  ssh_password = "kickstartpassword"
-  ssh_timeout = "60m"
-  ssh_certificate_file = <<EOF
-  TEST
-  EOF
+  ssh_password = "kickstartpass"
+  ssh_timeout = "30m"
+  #ssh_certificate_file = <<EOF
+  #TEST
+  #EOF
 }
 
 source "virtualbox-iso" "hello-base-ubuntu-ovf" {
