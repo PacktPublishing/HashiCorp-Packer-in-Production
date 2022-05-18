@@ -66,7 +66,7 @@ source "qemu" "hello-base-streams" {
   disk_size = "10G"
 
   iso_url      = var.streams_iso.url
-  #iso_checksum = var.streams_iso.shasum
+  iso_checksum = var.streams_iso.shasum
   output_directory = "/aux/qemu/packer"
   vm_name = "tdhtest"
   net_device = "virtio-net"
