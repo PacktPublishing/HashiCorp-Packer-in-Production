@@ -1,0 +1,34 @@
+
+source "virtualbox-iso" "hello-base" {
+  boot_command            = ["<esc><wait>", "vmlinuz initrd=initrd.img ", "inst.ks=https://github.com/jboero/hashistack/raw/master/http/ks-centosStreams.cfg", "<enter>"]
+  boot_wait               = "3s"
+  communicator            = "ssh"
+  cpus                    = 2
+  disk_size               = 100000
+  guest_additions_mode    = "attach"
+  guest_additions_sha256  = "62a0c6715bee164817a6f58858dec1d60f01fd0ae00a377a75bbf885ddbd0a61"
+  guest_additions_url     = "https://download.virtualbox.org/virtualbox/6.1.10/VBoxGuestAdditions_6.1.10.iso"
+  guest_os_type           = "RedHat_64"
+  headless                = false
+  iso_checksum            = "file:https://lon.mirror.rackspace.com/centos-stream/9-stream/BaseOS/x86_64/iso/CentOS-Stream-9-latest-x86_64-dvd1.iso.SHA256SUM"
+  iso_url                 = "https://lon.mirror.rackspace.com/centos-stream/9-stream/BaseOS/x86_64/iso/CentOS-Stream-9-latest-x86_64-dvd1.iso"
+  memory                  = 1024
+  output_filename         = "hello-world.ovf"
+  pause_before_connecting = "10s"
+  shutdown_command        = "shutdown -P now"
+  ssh_password            = "packer"
+  ssh_timeout             = "20m"
+  ssh_username            = "root"
+  vm_name                 = "hello-world"
+}
+
+build {
+  sources = ["source.virtualbox-iso.hello-base"]
+
+  provisioner "file" {
+    destination = "/etc/motd"
+    direction   = "upload"
+    source      = "motd"
+  }
+
+}
