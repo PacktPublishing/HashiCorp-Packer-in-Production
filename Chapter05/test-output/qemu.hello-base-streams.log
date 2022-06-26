@@ -1,0 +1,7 @@
+1656286856,qemu.hello-base-streams,artifact-count,1
+1656286856,qemu.hello-base-streams,artifact,0,builder-id,transcend.qemu
+1656286856,qemu.hello-base-streams,artifact,0,id,VM
+1656286856,qemu.hello-base-streams,artifact,0,string,VM files in directory: /aux/packer/qcow
+1656286856,qemu.hello-base-streams,artifact,0,files-count,1
+1656286856,qemu.hello-base-streams,artifact,0,file,0,/aux/packer/qcow/bases.qcow2
+1656286856,qemu.hello-base-streams,artifact,0,end

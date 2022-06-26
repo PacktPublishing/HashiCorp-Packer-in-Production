@@ -88,7 +88,7 @@ source "qemu" "hello-base-streams" {
   # For maximum build speed, use TMPFS if you have enough RAM.
   output_directory = "${var.outputs.path}/qcow"
 
-  vm_name = "${build.name}.qcow2"
+  vm_name = "bases.qcow2"
   net_device = "virtio-net"
   disk_interface = "virtio"
   qemuargs = [["-cpu", "host"]]

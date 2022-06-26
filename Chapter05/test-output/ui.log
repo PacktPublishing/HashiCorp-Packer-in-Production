@@ -1,0 +1,88 @@
+1656286406,,ui,say,==> null.localhost: Using SSH communicator to connect: localhost
+1656286406,,ui,say,==> qemu.hello-base-streams: Retrieving ISO
+1656286406,,ui,say,==> null.localhost: Waiting for SSH to become available...
+1656286406,,ui,say,==> qemu.hello-base-streams: Trying http://lon.mirror.rackspace.com/centos-stream/9-stream/BaseOS/x86_64/iso/CentOS-Stream-9-latest-x86_64-dvd1.iso
+1656286406,,ui,say,==> qemu.hello-base-streams: Trying http://lon.mirror.rackspace.com/centos-stream/9-stream/BaseOS/x86_64/iso/CentOS-Stream-9-latest-x86_64-dvd1.iso?checksum=sha256%3A149b79286635330e1be72a05027b4d54347c99653ce5b7203dac5c4523f5045d
+1656286406,,ui,say,==> null.localhost: Connected to SSH!
+1656286406,,ui,say,==> null.localhost: Running local shell script: /tmp/packer-shell1261696184
+1656286407,,ui,error,==> null.localhost: [WARNING]: provided hosts list is empty%!(PACKER_COMMA) only localhost is available. Note that
+1656286407,,ui,error,==> null.localhost: the implicit localhost does not match 'all'
+1656286407,,ui,message,    null.localhost:  __________________________________
+1656286407,,ui,message,    null.localhost: < PLAY [Hello Ansible from Packer] >
+1656286407,,ui,message,    null.localhost:  ----------------------------------
+1656286407,,ui,message,    null.localhost:            ^__^
+1656286407,,ui,message,    null.localhost:            (oo)_______
+1656286407,,ui,message,    null.localhost:             (__)       )/1656286407,,ui,message,    null.localhost:                 ||----w |
+1656286407,,ui,message,    null.localhost:                 ||     ||
+1656286407,,ui,message,    null.localhost:
+1656286407,,ui,message,    null.localhost:  ________________________
+1656286407,,ui,message,    null.localhost: < TASK [Gathering Facts] >
+1656286407,,ui,message,    null.localhost:  ------------------------
+1656286407,,ui,message,    null.localhost:            ^__^
+1656286407,,ui,message,    null.localhost:            (oo)_______
+1656286407,,ui,message,    null.localhost:             (__)       )/1656286407,,ui,message,    null.localhost:                 ||----w |
+1656286407,,ui,message,    null.localhost:                 ||     ||
+1656286407,,ui,message,    null.localhost:
+1656286408,,ui,message,    null.localhost: ok: [localhost]
+1656286408,,ui,message,    null.localhost:  ______________________________
+1656286408,,ui,message,    null.localhost: < TASK [Create a file in tmp.] >
+1656286408,,ui,message,    null.localhost:  ------------------------------
+1656286408,,ui,message,    null.localhost:            ^__^
+1656286408,,ui,message,    null.localhost:            (oo)_______
+1656286408,,ui,message,    null.localhost:             (__)       )/1656286408,,ui,message,    null.localhost:                 ||----w |
+1656286408,,ui,message,    null.localhost:                 ||     ||
+1656286408,,ui,message,    null.localhost:
+1656286409,,ui,message,    null.localhost: changed: [localhost]
+1656286409,,ui,message,    null.localhost:  ____________
+1656286409,,ui,message,    null.localhost: < PLAY RECAP >
+1656286409,,ui,message,    null.localhost:  ------------
+1656286409,,ui,message,    null.localhost:            ^__^
+1656286409,,ui,message,    null.localhost:            (oo)_______
+1656286409,,ui,message,    null.localhost:             (__)       )/1656286409,,ui,message,    null.localhost:                 ||----w |
+1656286409,,ui,message,    null.localhost:                 ||     ||
+1656286409,,ui,message,    null.localhost:
+1656286409,,ui,message,    null.localhost: localhost                  : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+1656286409,,ui,message,    null.localhost:
+1656286409,,ui,say,Build 'null.localhost' finished after 3 seconds 173 milliseconds.
+1656286432,,ui,say,==> qemu.hello-base-streams: http://lon.mirror.rackspace.com/centos-stream/9-stream/BaseOS/x86_64/iso/CentOS-Stream-9-latest-x86_64-dvd1.iso?checksum=sha256%3A149b79286635330e1be72a05027b4d54347c99653ce5b7203dac5c4523f5045d => /aux/packer/cache/c6be14266f487c1bd4d57da22e3f0ea55f98faf2.iso
+1656286432,,ui,say,==> qemu.hello-base-streams: Found port for communicator (SSH%!(PACKER_COMMA) WinRM%!(PACKER_COMMA) etc): 4034.
+1656286432,,ui,say,==> qemu.hello-base-streams: Looking for available port between 5900 and 6000 on 127.0.0.1
+1656286432,,ui,say,==> qemu.hello-base-streams: Starting VM%!(PACKER_COMMA) booting from CD-ROM
+1656286432,,ui,say,==> qemu.hello-base-streams: Overriding default Qemu arguments with qemuargs template option...
+1656286434,,ui,say,==> qemu.hello-base-streams: Waiting 1s for boot...
+1656286435,,ui,say,==> qemu.hello-base-streams: Connecting to VM via VNC (127.0.0.1:5914)
+1656286435,,ui,say,==> qemu.hello-base-streams: Typing the boot command over VNC...
+1656286439,,ui,message,    qemu.hello-base-streams: Not using a NetBridge -- skipping StepWaitGuestAddress
+1656286439,,ui,say,==> qemu.hello-base-streams: Using SSH communicator to connect: 127.0.0.1
+1656286439,,ui,say,==> qemu.hello-base-streams: Waiting for SSH to become available...
+1656286846,,ui,say,==> qemu.hello-base-streams: Connected to SSH!
+1656286846,,ui,say,==> qemu.hello-base-streams: Running local shell script: /tmp/packer-shell4019755913
+1656286847,,ui,error,==> qemu.hello-base-streams: [WARNING]: provided hosts list is empty%!(PACKER_COMMA) only localhost is available. Note that
+1656286847,,ui,error,==> qemu.hello-base-streams: the implicit localhost does not match 'all'
+1656286848,,ui,error,==> qemu.hello-base-streams: [WARNING]: Could not match supplied host pattern%!(PACKER_COMMA) ignoring: hello-base-streams
+1656286848,,ui,message,    qemu.hello-base-streams:  __________________________________
+1656286848,,ui,message,    qemu.hello-base-streams: < PLAY [Hello Ansible from Packer] >
+1656286848,,ui,message,    qemu.hello-base-streams:  ----------------------------------
+1656286848,,ui,message,    qemu.hello-base-streams:            ^__^
+1656286848,,ui,message,    qemu.hello-base-streams:            (oo)_______
+1656286848,,ui,message,    qemu.hello-base-streams:             (__)       )/1656286848,,ui,message,    qemu.hello-base-streams:                 ||----w |
+1656286848,,ui,message,    qemu.hello-base-streams:                 ||     ||
+1656286848,,ui,message,    qemu.hello-base-streams:
+1656286848,,ui,message,    qemu.hello-base-streams: skipping: no hosts matched
+1656286848,,ui,message,    qemu.hello-base-streams:  ____________
+1656286848,,ui,message,    qemu.hello-base-streams: < PLAY RECAP >
+1656286848,,ui,message,    qemu.hello-base-streams:  ------------
+1656286848,,ui,message,    qemu.hello-base-streams:            ^__^
+1656286848,,ui,message,    qemu.hello-base-streams:            (oo)_______
+1656286848,,ui,message,    qemu.hello-base-streams:             (__)       )/1656286848,,ui,message,    qemu.hello-base-streams:                 ||----w |
+1656286848,,ui,message,    qemu.hello-base-streams:                 ||     ||
+1656286848,,ui,message,    qemu.hello-base-streams:
+1656286848,,ui,message,    qemu.hello-base-streams:
+1656286848,,ui,say,==> qemu.hello-base-streams: Halting the virtual machine...
+1656286848,,ui,say,==> qemu.hello-base-streams: Converting hard drive...
+1656286848,,ui,say,==> qemu.hello-base-streams: Error getting file lock for conversion; retrying...
+1656286856,,ui,say,Build 'qemu.hello-base-streams' finished after 7 minutes 29 seconds.
+1656286856,,ui,say,n==> Wait completed after 7 minutes 29 seconds
+1656286856,,ui,say,n==> Builds finished. The artifacts of successful builds are:
+1656286856,,ui,say,--> null.localhost: Did not export anything. This is the null builder
+1656286856,,ui,say,--> qemu.hello-base-streams: VM files in directory: /aux/packer/qcow
