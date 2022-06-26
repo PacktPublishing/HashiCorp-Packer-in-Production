@@ -14,7 +14,18 @@ variable "streams_iso" {
   })
   default = {
     url    = "http://lon.mirror.rackspace.com/centos-stream/9-stream/BaseOS/x86_64/iso/CentOS-Stream-9-latest-x86_64-dvd1.iso"
-    shasum = "sha256:5af0d4535a13e8b1c5129df85f6e8c853f0a82f77d8614d4f91187bc7aa94d52"
+    shasum = "sha256:149b79286635330e1be72a05027b4d54347c99653ce5b7203dac5c4523f5045d"
+  }
+}
+
+// Parameterize the CentOS Streams ISO
+variable "outputs" {
+  description = "The path to output."
+  type        = object({
+    path    = string
+  })
+  default = {
+    path    = "/aux/packer"
   }
 }
 
@@ -46,7 +57,7 @@ source "virtualbox-iso" "hello-base-streams-ovf" {
   iso_url                 = var.streams_iso.url
   iso_checksum            = var.streams_iso.shasum
   memory                  = 8192
-  output_filename         = "base-streams.ovf"
+  #output_filename         = "base-streams.ovf"
   pause_before_connecting = "10s"
   shutdown_command        = "shutdown -P now"
   ssh_username            = "root"
@@ -68,16 +79,16 @@ source "qemu" "hello-base-streams" {
   #disk_image    = true
   #iso_url		   = "file:///aux/kvm/CentOS-Stream-GenericCloud-9-20220509.0.x86_64.qcow2"
   #iso_url       = "file:///aux/iso/rhel-baseos-9.0-beta-0-x86_64-dvd.iso"
-  #iso_url       = var.streams_iso.url
   #iso_url       = "https://cloud.centos.org/centos/9-stream/x86_64/images/CentOS-Stream-GenericCloud-9-20220509.0.x86_64.iso"
-  iso_url        = "file:///aux/iso/CentOS-Streams-9.iso"
-
-  #iso_checksum = var.streams_iso.shasum
-  iso_checksum = "none"
+  #iso_url        = "file:///aux/iso/CentOS-Stream-9-latest-x86_64-dvd1.iso"
+  iso_url       = var.streams_iso.url
+  iso_checksum = var.streams_iso.shasum
+  #iso_checksum = "none"
 
   # For maximum build speed, use TMPFS if you have enough RAM.
-  output_directory = "/aux/packer/base"
-  vm_name = "tdhtest"
+  output_directory = "${var.outputs.path}/qcow"
+
+  vm_name = "${build.name}.qcow2"
   net_device = "virtio-net"
   disk_interface = "virtio"
   qemuargs = [["-cpu", "host"]]
@@ -165,11 +176,11 @@ source "qemu" "base-aarch64" {
   memory = 1024
   disk_size = "10G"
   ssh_username = "root"
-  iso_url = "file:///aux/iso/Fedora-Server-35-1.2.aarch64.raw"
-  iso_checksum = "ba106246cf20f31d74ebcde486f9542367e05652572c1d19f811c88305c02411"
+  iso_url = "file:///aux/iso/Fedora-Server-netinst-x86_64-36-1.5.iso"
+  iso_checksum = "421c4c6e23d72e4669a55e7710562287ecd9308b3d314329960f586b89ccca19"
   disk_image = true
   net_device = "e1000"
-  output_filename = "base-aarch64.qcow2"
+  #output_filename = "base-aarch64.qcow2"
 
   qemuargs =[
     ["-S"],
@@ -210,7 +221,8 @@ source "null" "localhost" {
 // Define a build with our single source builder and two provisioners.
 build {
   sources = [
-    "source.null.localhost"
+    "source.null.localhost",
+    "source.qemu.hello-base-streams"
     ]
 
   /*
@@ -243,6 +255,12 @@ ANS
       EOF 
     ]
   }
+
+  /* Sample pzstd compression post step.
+  post-processor "shell-local" {
+    inline = [ "pzstd --rm ${var.outputs.path}/${build.name}" ]
+  }
+  */
 
   # On error try to copy the remote /var/log/ dir for the build and build_id
   # Note the communicator user will need read access to all of /var/log

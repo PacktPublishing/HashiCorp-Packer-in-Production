@@ -1,0 +1,9 @@
+---
+# playbook.yml
+- name: Hello Ansible from Packer
+  hosts: localhost
+  tasks:
+    - name: Create a file in tmp.
+      copy:
+        content: Hello world from ansible run via packer.
+        dest: /tmp/packeransible.txt
