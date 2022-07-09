@@ -2,7 +2,11 @@
     John Boero   */
 // HCL2 extrapolates builders as "sources"
 source "virtualbox-iso" "hello-base" {
-  boot_command            = ["<esc><wait>", "vmlinuz initrd=initrd.img ", "inst.ks=https://github.com/jboero/hashistack/raw/master/http/ks-centosStreams.cfg", "<enter>"]
+  boot_command            = [
+    "<esc><wait>", 
+    "vmlinuz initrd=initrd.img ", 
+    "inst.ks=https://github.com/jboero/hashistack/raw/master/http/ks-centosStreams.cfg", 
+    "<enter>"]
   boot_wait               = "3s"
   communicator            = "ssh"
   cpus                    = 2
