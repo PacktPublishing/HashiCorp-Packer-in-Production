@@ -14,7 +14,7 @@ variable "streams_iso" {
   })
   default = {
     url    = "http://lon.mirror.rackspace.com/centos-stream/9-stream/BaseOS/x86_64/iso/CentOS-Stream-9-latest-x86_64-dvd1.iso"
-    shasum = "sha256:5af0d4535a13e8b1c5129df85f6e8c853f0a82f77d8614d4f91187bc7aa94d52"
+    shasum = "file:https://lon.mirror.rackspace.com/centos-stream/9-stream/BaseOS/x86_64/iso/CentOS-Stream-9-latest-x86_64-dvd1.iso.SHA256SUM"
   }
 }
 
@@ -66,7 +66,7 @@ source "qemu" "hello-base-streams" {
   disk_size = "10G"
 
   iso_url      = var.streams_iso.url
-  #iso_checksum = var.streams_iso.shasum
+  iso_checksum = var.streams_iso.shasum
   output_directory = "/aux/qemu/packer"
   vm_name = "tdhtest"
   net_device = "virtio-net"
