@@ -24,6 +24,24 @@ variable "streams_iso" {
   }
 }
 
+// Populate these for Azure ARM by default.
+variable "ARM_CLIENT_ID" {
+  default = env("ARM_CLIENT_ID")
+}
+
+variable "ARM_CLIENT_SECRET" {
+  default = env("ARM_CLIENT_SECRET")
+}
+
+variable "ARM_SUBSCRIPTION_ID" {
+  default = env("ARM_SUBSCRIPTION_ID")
+}
+
+variable "ARM_TENANT_ID" {
+  default = env("ARM_TENANT_ID")
+}
+
+
 // Parameterize the CentOS Streams ISO
 variable "outputs" {
   description = "The path to output."
@@ -106,10 +124,10 @@ source "amazon-ebs" "gold_rhel9_latest" {
 }
 
 source "azure-arm" "gold_rhel9" {
-  client_id       = env("ARM_CLIENT_ID")
-  client_secret   = env("ARM_CLIENT_SECRET")
-  subscription_id = env("ARM_SUBSCRIPTION_ID")
-  tenant_id       = env("ARM_TENANT_ID")
+  client_id       = var.ARM_CLIENT_ID
+  client_secret   = var.ARM_CLIENT_SECRET
+  subscription_id = var.ARM_SUBSCRIPTION_ID
+  tenant_id       = var.ARM_TENANT_ID
   /**/
   resource_group_name    = "packer"
   storage_account        = "packer"
@@ -131,6 +149,17 @@ source "azure-arm" "gold_rhel9" {
   vm_size = "Standard_A1"
 }
 
+source "azure-chroot" "gold_rhel9" {
+  image_resource_id = "/subscriptions/YOURSUB/resourceGroups/YOURRG/providers/Microsoft.Compute/images/gold-RHEL9"
+  source            = "redhat:rhel:9:latest"
+}
+
+source "googlecompute" "basic-example" {
+  project_id = vars.gcp_proj
+  source_image = "debian-9-stretch-v20200805"
+  ssh_username = "packer"
+  zone = "eu-west4-a"
+}
 
 source "qemu" "gold_centos9_latest" {
   accelerator = "kvm"
@@ -144,7 +173,7 @@ source "qemu" "gold_centos9_latest" {
   #iso_url       = "file:///aux/iso/rhel-baseos-9.0-beta-0-x86_64-dvd.iso"
   #iso_url       = "https://cloud.centos.org/centos/9-stream/x86_64/images/CentOS-Stream-GenericCloud-9-20220509.0.x86_64.iso"
   #iso_url        = "file:///aux/iso/CentOS-Stream-9-latest-x86_64-dvd1.iso"
-  iso_url       = var.streams_iso.url
+  iso_url      = var.streams_iso.url
   iso_checksum = var.streams_iso.shasum
   #iso_checksum = "none"
 
