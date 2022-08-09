@@ -75,18 +75,38 @@ source "virtualbox-iso" "hello-base-streams-ovf" {
  ]
 }
 
-data "amazon-ami" "el-amd64" {
+data "amazon-ami" "el9-amd64" {
   filters = {
-    name                = "rhel/images/rhel-9*x86_64"
+    name                = "RHEL-9*x86_64*"
     root-device-type    = "ebs"
     virtualization-type = "hvm"
   }
   most_recent = true
   owners      = ["309956199498"]
+
+  /** /
+  # Optional assume_role for data sources.
+  assume_role {
+    role_arn     = "arn:aws:iam::ACCOUNT_ID:role/ROLE_NAME"
+    session_name = "SESSION_NAME"
+    external_id  = "EXTERNAL_ID"
+  }
+  /**/
+}
+
+// Use SSH agent authentication
+source "amazon-ebs" "gold_rhel9_latest" {
+  ami_name      = "gold_rhel9_latest"
+  communicator  = "ssh"
+  instance_type = "t2.micro"
+  source_ami    = data.amazon-ami.el9-amd64.id
+  ssh_username  = "root"
+  deprecate_at  = timeadd(timestamp(), "1m")
+  ami_regions   = ["us-east-2", "eu-west-2"]
 }
 
 
-source "qemu" "hello-base-streams" {
+source "qemu" "gold_centos9_latest" {
   accelerator = "kvm"
   #headless = true
   cpus = 8
@@ -125,7 +145,7 @@ source "qemu" "hello-base-streams" {
   #EOF
 }
 
-source "virtualbox-iso" "hello-base-ubuntu-ovf" {
+source "virtualbox-iso" "gold_ubuntu_base" {
   boot_command            = [
         "<enter><enter><f6><esc><wait> ",
         "autoinstall ds=nocloud-net,#;seedfrom=http://{{ .HTTPIP }}:{{ .HTTPPort }}/",
@@ -226,16 +246,18 @@ source "qemu" "base-aarch64" {
 }
 
 source "null" "localhost" {
+  /**/
   ssh_host = "localhost"
-  ssh_username = "jboero"
+  ssh_username = "youruser"
   ssh_agent_auth = true
   ssh_timeout = "2s"
+  /**/
   #ssh_key_exchange_algorithms = ["curve25519-sha256@libssh.org","ecdh-sha2-nistp256",
   #  "ecdh-sha2-nistp384","ecdh-sha2-nistp521"]
   #ssh_ciphers = [ "aes128-gcm@openssh.com", "chacha20-poly1305@openssh.com", "aes128-ctr", "aes192-ctr", "aes256-ctr"]
 }
 
-source "vsphere-iso" "vsphere-base" {
+source "vsphere-iso" "gold_rhel9_latest" {
   CPUs                 = 2
   RAM                  = 2048
   RAM_reserve_all      = false
@@ -246,7 +268,7 @@ source "vsphere-iso" "vsphere-base" {
   guest_os_type        = "other3xLinux64Guest"
   host                 = "hv01.vcenter.yourco.com"
 
-  iso_paths            = ["[datastore1] ISO/alpine-standard-3.8.2-x86_64.iso"]
+  iso_paths            = ["[datastore1] ISO/rhel-9.0.0-x86_64.iso"]
   network_adapters {
     network_card = "vmxnet3"
   }
@@ -271,8 +293,9 @@ source "vsphere-iso" "vsphere-base" {
 build {
   sources = [
     #"sources.vsphere-iso.vsphere-base"
-    "sources.null.localhost"
+    #"sources.null.localhost"
     #"sources.qemu.hello-base-streams"
+    "sources.amazon-ebs.gold_rhel9_latest"
     ]
 
   /*
