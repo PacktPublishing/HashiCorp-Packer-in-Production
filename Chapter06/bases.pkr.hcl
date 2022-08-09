@@ -6,8 +6,8 @@ packer {
 }
 
 locals {
-  vsphere_user  = vault("/secret/data/vsphere/creds", "user")
-  vsphere_pw    = vault("/secret/data/vsphere/creds", "password")
+//  vsphere_user  = vault("/secret/data/vsphere/creds", "user")
+//  vsphere_pw    = vault("/secret/data/vsphere/creds", "password")
   rootpw        = uuidv4()
 }
 
@@ -48,7 +48,7 @@ variable "vbox_additions" {
   }
 }
 
-
+// Chapter 06 - Builders explained.
 source "virtualbox-iso" "hello-base-streams-ovf" {
   boot_command            = ["<esc><wait>", "vmlinuz initrd=initrd.img ", "inst.ks=https://github.com/jboero/hashistack/raw/master/http/ks-centosStreams.cfg", "<enter>"]
   boot_wait               = "3s"
@@ -74,6 +74,17 @@ source "virtualbox-iso" "hello-base-streams-ovf" {
       [ "modifyvm", "{{.Name}}", "--paravirtprovider=kvm" ],
  ]
 }
+
+data "amazon-ami" "el-amd64" {
+  filters = {
+    name                = "rhel/images/rhel-9*x86_64"
+    root-device-type    = "ebs"
+    virtualization-type = "hvm"
+  }
+  most_recent = true
+  owners      = ["309956199498"]
+}
+
 
 source "qemu" "hello-base-streams" {
   accelerator = "kvm"
@@ -260,8 +271,8 @@ source "vsphere-iso" "vsphere-base" {
 build {
   sources = [
     #"sources.vsphere-iso.vsphere-base"
-    #"sources.null.localhost"
-    "sources.qemu.hello-base-streams"
+    "sources.null.localhost"
+    #"sources.qemu.hello-base-streams"
     ]
 
   /*
