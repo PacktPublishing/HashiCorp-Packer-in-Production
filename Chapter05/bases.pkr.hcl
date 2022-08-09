@@ -238,6 +238,12 @@ build {
   }
   */
 
+  /*  Sample breakpoint.
+  provisioner "breakpoint" {
+    only = ["qemu.hello-base-streams"]
+  }
+  */
+
   provisioner "shell-local" {
     inline = [
       <<EOF
