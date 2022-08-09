@@ -156,7 +156,7 @@ source "azure-chroot" "gold_rhel9" {
 
 source "googlecompute" "basic-example" {
   project_id = vars.gcp_proj
-  source_image = "debian-9-stretch-v20200805"
+  source_image = "rhel-9-v20220719"
   ssh_username = "packer"
   zone = "eu-west4-a"
 }
