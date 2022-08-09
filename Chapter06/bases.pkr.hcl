@@ -106,26 +106,25 @@ source "amazon-ebs" "gold_rhel9_latest" {
 }
 
 source "azure-arm" "gold_rhel9" {
-  /** /
-  client_id = "YOURCLIENT"
-  client_secret = "YOURSECRET"
-  subscription_id = "YOURSUB"
-  tenant_id = "YOURTENANT"
+  client_id       = env("ARM_CLIENT_ID")
+  client_secret   = env("ARM_CLIENT_SECRET")
+  subscription_id = env("ARM_SUBSCRIPTION_ID")
+  tenant_id       = env("ARM_TENANT_ID")
   /**/
-  resource_group_name = "packer"
-  storage_account = "packer"
+  resource_group_name    = "packer"
+  storage_account        = "packer"
 
   capture_container_name = "images"
-  capture_name_prefix = "packer"
+  capture_name_prefix    = "packer"
 
-  os_type = "Linux"
+  os_type         = "Linux"
   image_publisher = "RedHat"
-  image_offer = "RHEL"
-  image_sku = "9.0"
-  image_version = "latest"
+  image_offer     = "RHEL"
+  image_sku       = "9.0"
+  image_version   = "latest"
 
   azure_tags = {
-    dept = "packer"
+    builder = "packer"
   }
 
   location = "West Europe"
