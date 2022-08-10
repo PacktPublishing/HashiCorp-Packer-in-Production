@@ -41,6 +41,9 @@ variable "ARM_TENANT_ID" {
   default = env("ARM_TENANT_ID")
 }
 
+variable "GCP_PROJECT" {
+  default = env("GCP_PROJECT")
+}
 
 // Parameterize the CentOS Streams ISO
 variable "outputs" {
@@ -155,7 +158,7 @@ source "azure-chroot" "gold_rhel9" {
 }
 
 source "googlecompute" "basic-example" {
-  project_id = vars.gcp_proj
+  project_id = vars.GCP_PROJECT
   source_image = "rhel-9-v20220719"
   ssh_username = "packer"
   zone = "eu-west4-a"
