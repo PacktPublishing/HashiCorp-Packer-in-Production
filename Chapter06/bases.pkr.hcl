@@ -167,7 +167,8 @@ source "googlecompute" "gold_rhel9" {
   ssh_username = "packer"
   zone = "us-west1-a"
 
-  // Do not run as root, but no
+  // Instance name will also set the disk name by default.
+  instance_name = "packer_gold_rhel9"
   account_file = "/${var.USER}/.config/gcloud/credentials"
 }
 
