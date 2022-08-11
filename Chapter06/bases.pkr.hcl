@@ -158,7 +158,7 @@ source "azure-chroot" "gold_rhel9" {
 }
 
 source "googlecompute" "gold_rhel9" {
-  project_id = vars.GCP_PROJECT
+  project_id = var.GCP_PROJECT
   source_image = "rhel-9-v20220719"
   ssh_username = "packer"
   zone = "eu-west4-a"
