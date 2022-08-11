@@ -24,6 +24,10 @@ variable "streams_iso" {
   }
 }
 
+variable "USER" {
+  default = env("USER")
+}
+
 // Populate these for Azure ARM by default.
 variable "ARM_CLIENT_ID" {
   default = env("ARM_CLIENT_ID")
@@ -158,11 +162,13 @@ source "azure-chroot" "gold_rhel9" {
 }
 
 source "googlecompute" "gold_rhel9" {
-  project_id = var.GCP_PROJECT
+  project_id = varg.GCP_PROJECT
   source_image = "rhel-9-v20220719"
   ssh_username = "packer"
-  zone = "eu-west4-a"
-  network = "packer"
+  zone = "us-west1-a"
+
+  // Do not run as root, but no
+  account_file = "/{{var.USER}}/.config/gcloud/credentials"
 }
 
 source "qemu" "gold_centos9_latest" {
