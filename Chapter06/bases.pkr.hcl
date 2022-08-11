@@ -157,7 +157,7 @@ source "azure-chroot" "gold_rhel9" {
   source            = "redhat:rhel:9:latest"
 }
 
-source "googlecompute" "basic-example" {
+source "googlecompute" "gold_rhel9" {
   project_id = vars.GCP_PROJECT
   source_image = "rhel-9-v20220719"
   ssh_username = "packer"
@@ -354,7 +354,8 @@ build {
     #"sources.vsphere-iso.vsphere-base"
     #"sources.null.localhost"
     #"sources.qemu.hello-base-streams"
-    "sources.amazon-ebs.gold_rhel9_latest"
+    #"sources.amazon-ebs.gold_rhel9_latest"
+    "sources.googlecompute.gold_rhel9"
     ]
 
   /*
