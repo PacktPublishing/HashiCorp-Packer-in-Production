@@ -168,7 +168,7 @@ source "googlecompute" "gold_rhel9" {
   zone = "us-west1-a"
 
   // Do not run as root, but no
-  account_file = "/{{var.USER}}/.config/gcloud/credentials"
+  account_file = "/${var.USER}/.config/gcloud/credentials"
 }
 
 source "qemu" "gold_centos9_latest" {
