@@ -162,6 +162,7 @@ source "googlecompute" "basic-example" {
   source_image = "rhel-9-v20220719"
   ssh_username = "packer"
   zone = "eu-west4-a"
+  network = "packer"
 }
 
 source "qemu" "gold_centos9_latest" {
