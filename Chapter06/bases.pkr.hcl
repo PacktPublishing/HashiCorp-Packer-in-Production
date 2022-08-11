@@ -378,6 +378,7 @@ build {
   */
 
   provisioner "shell-local" {
+    only = ["*ansible*"]
     inline = [
       <<EOF
 ansible-playbook /dev/stdin <<ANS
