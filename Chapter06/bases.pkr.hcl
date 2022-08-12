@@ -169,8 +169,10 @@ source "googlecompute" "gold_rhel9" {
   // Instance name will also set the disk name by default.
   machine_type = "e2-small"
   preemptible = true
-  instance_name = "packer_gold_rhel9"
 
+  // Nomae cannot have underscores.
+  instance_name = "packer-gold-rhel9"
+  disk_name = "gold_rhel9"
   account_file = "/${var.USER}/.config/gcloud/credentials"
   ssh_username = "packer"
 }
