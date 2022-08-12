@@ -172,7 +172,7 @@ source "googlecompute" "gold_rhel9" {
 
   // Nomae cannot have underscores.
   instance_name = "packer-gold-rhel9"
-  disk_name = "gold_rhel9"
+  disk_name = "gold.rhel9"
   account_file = "/${var.USER}/.config/gcloud/credentials"
   ssh_username = "packer"
 }
