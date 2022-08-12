@@ -164,12 +164,15 @@ source "azure-chroot" "gold_rhel9" {
 source "googlecompute" "gold_rhel9" {
   project_id = var.GCP_PROJECT
   source_image = "rhel-9-v20220719"
-  ssh_username = "packer"
   zone = "us-west1-a"
 
   // Instance name will also set the disk name by default.
+  machine_type = "e2-small"
+  preemptible = true
   instance_name = "packer_gold_rhel9"
+
   account_file = "/${var.USER}/.config/gcloud/credentials"
+  ssh_username = "packer"
 }
 
 source "qemu" "gold_centos9_latest" {
