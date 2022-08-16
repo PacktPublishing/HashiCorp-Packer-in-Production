@@ -6,9 +6,10 @@ packer {
 }
 
 locals {
-//  vsphere_user  = vault("/secret/data/vsphere/creds", "user")
-//  vsphere_pw    = vault("/secret/data/vsphere/creds", "password")
+  vsphere_user  = vault("/secret/data/vsphere/creds", "user")
+  vsphere_pw    = vault("/secret/data/vsphere/creds", "password")
   rootpw        = uuidv4()
+  rnd           = vault("/sys/tools/random/32", "random_bytes")
 }
 
 // Parameterize the CentOS Streams ISO
@@ -47,6 +48,10 @@ variable "ARM_TENANT_ID" {
 
 variable "GCP_PROJECT" {
   default = env("GCP_PROJECT")
+}
+
+variable "CLOUDSDK_CONFIG" {
+  default = env("CLOUDSDK_CONFIG")
 }
 
 // Parameterize the CentOS Streams ISO
@@ -159,6 +164,7 @@ source "azure-arm" "gold_rhel9" {
 source "azure-chroot" "gold_rhel9" {
   image_resource_id = "/subscriptions/YOURSUB/resourceGroups/YOURRG/providers/Microsoft.Compute/images/gold-RHEL9"
   source            = "redhat:rhel:9:latest"
+  resource_group_name = "packer"
 }
 
 source "googlecompute" "gold_rhel9" {
@@ -170,10 +176,10 @@ source "googlecompute" "gold_rhel9" {
   machine_type = "e2-small"
   preemptible = true
 
-  // Nomae cannot have underscores.
+  // Names cannot have underscores.
   instance_name = "packer-gold-rhel9"
-  disk_name = "gold.rhel9"
-  account_file = "/${var.USER}/.config/gcloud/credentials"
+  disk_name = "gold-rhel9"
+  account_file = "/home/${var.USER}/packer.json"
   ssh_username = "packer"
 }
 
@@ -363,10 +369,10 @@ source "vsphere-iso" "gold_rhel9_latest" {
 // Define a build with our single source builder and two provisioners.
 build {
   sources = [
-    #"sources.vsphere-iso.vsphere-base"
-    #"sources.null.localhost"
-    #"sources.qemu.hello-base-streams"
-    #"sources.amazon-ebs.gold_rhel9_latest"
+    "sources.vsphere-iso.gold_rhel9_latest",
+    "sources.null.localhost",
+    "sources.qemu.gold_centos9_latest",
+    "sources.amazon-ebs.gold_rhel9_latest",
     "sources.googlecompute.gold_rhel9"
     ]
 
@@ -382,6 +388,14 @@ build {
     playbook_file = "./playbook.yml"
   }
   */
+
+  dynamic "provisioner" {
+    labels = ["shell-local"]
+    for_each = ["rhel8", "rhel9"]
+    content {
+      command = "echo ${provisioner.value} done"
+    }
+  }
 
   provisioner "shell-local" {
     only = ["*ansible*"]
