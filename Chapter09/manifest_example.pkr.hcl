@@ -1,6 +1,5 @@
-// A sample Packer template to cross-build base container images for the latest Ubuntu.
-// Platforms include x86_64/amd64, aarch64/arm64, and riscv64
-// Requires qemu-static-x86_64, qemu-static-aarch64, and qemu-static-riscv64 installe.d
+// A sample Packer template to demonstrate the manifest post processor.
+// Variant of Chapter08/Docker example.
 // Author: John Boero for Packer in Production
 source "docker" "base_ubuntu" {
   image = "library/ubuntu:latest"
@@ -18,14 +17,7 @@ build {
     }
   }
 
-  post-processor "shell-local" {
-    inline = ["pzstd -f ${source.name}.tar"]
-  }
-
   post-processors {
-    post-processor "docker-tag" {
-      repository =  "testing/${source.name}"
-    }
-    post-processor "docker-push" {}
+    post-processor "manifest" {}
   }
 }
