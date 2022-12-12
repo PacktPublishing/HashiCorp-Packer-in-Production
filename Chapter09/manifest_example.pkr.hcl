@@ -17,7 +17,5 @@ build {
     }
   }
 
-  post-processors {
-    post-processor "manifest" {}
-  }
+  post-processor "manifest" {}
 }
