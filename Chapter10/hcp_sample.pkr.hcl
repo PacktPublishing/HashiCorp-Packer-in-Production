@@ -4,7 +4,10 @@ source "amazon-ebs" "al-latest" {
   ami_name = source.name
   region        = "eu-west-1"
 
+  // Delete the instance after the image is saved.
   shutdown_behavior = "terminate"
+  
+  // Uncomment these for production, to retain the AMIs.
   #force_deregister = true
   #force_delete_snapshot = true
   ssh_username = "ec2-user"
