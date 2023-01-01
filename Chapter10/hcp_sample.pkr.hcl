@@ -2,19 +2,16 @@
 // Skip source_ami_filter for references in the build block.
 source "amazon-ebs" "al-latest" {
   ami_name = source.name
-  region        = "eu-west-1"
+  region   = "eu-west-1"
 
-  // Delete the instance after the image is saved.
   shutdown_behavior = "terminate"
-  
-  // Uncomment these for production, to retain the AMIs.
   #force_deregister = true
   #force_delete_snapshot = true
   ssh_username = "ec2-user"
 }
 
 build {
-  name    = "learn-packer"
+  name    = "Base images for Amazon Linux cross architecture"
 
   // One reference instance for arm64
   source "amazon-ebs.al-latest" {
@@ -63,11 +60,12 @@ build {
   // Sudo/root access to root content as ec2-user can be a pain.
   // Here we append a line to the MOTD to warn users about latest release.
   provisioner "shell" {
-    inline = [
-      "uname -a",
-      "cat /etc/os-release",
-      "sudo sh -c \"echo EXPERIMENTAL SOFTWARE Use for testing only. >> /etc/motd\"",
-      "sudo sh -c \"yum update -y\""
+    inline = [<<EOF
+      uname -a
+      cat /etc/os-release
+      sudo sh -c "echo EXPERIMENTAL SOFTWARE Use for testing only. >> /etc/motd"
+      sudo sh -c "yum update -y"
+      EOF
     ]
   }
 
