@@ -16,6 +16,11 @@ variable "channel" {
   default = "test"
 }
 
+// Set the nvidia driver version.
+variable "nvidia_version" {
+  default = "525.60.13"
+}
+
 // Look up the test iteration from our bucket.
 // Iteration can be used or we can specify a channel in the data source below.
 /** /
@@ -53,7 +58,7 @@ data "hcp-packer-image" "al_latest_x86_64" {
 
 // Create a specific source with Graviton GPU instance.
 // This does not translate well to reference sources.
-source "amazon-ebs" "al-aarch64-gpu-test" {
+source "amazon-ebs" "al-aarch64-gpu" {
   source_ami = data.hcp-packer-image.al_latest_aarch64.id
   region     = var.region
 
@@ -66,11 +71,15 @@ source "amazon-ebs" "al-aarch64-gpu-test" {
 
   // Build with Graviton g5g.xlarge intances.
   // The smallest Graviton instance with NVidia GPUs.
-  instance_type = "g5g.xlarge"
+  #instance_type = "g3g.xlarge"
+
+  // Note you can install Nvidia drivers in an instance without a GPU
+  // The installer just needs a newline on stdin to bypass a warning.
+  instance_type = "t4g.small"
 }
 
 // Build the same image for x86_64 also.
-source "amazon-ebs" "al-x86_64-gpu-test" {
+source "amazon-ebs" "al-x86_64-gpu" {
   source_ami = data.hcp-packer-image.al_latest_x86_64.id
   region     = var.region
 
@@ -79,10 +88,13 @@ source "amazon-ebs" "al-x86_64-gpu-test" {
   force_delete_snapshot = true
   ssh_username = "ec2-user"
 
-  ami_name = "al-aarch64-gpu-${var.channel}"
+  ami_name = "al-x86_64-gpu-${var.channel}"
 
   // Build with Xeon GPU g5.xlarge intances.
   #instance_type = "g3s.xlarge"
+
+  // Note you can install Nvidia drivers in an instance without a GPU
+  // The installer just needs a newline on stdin to bypass a warning.
   instance_type = "t2.small"
 }
 
@@ -91,8 +103,8 @@ build {
 
   // Build for aarch64 and x86_64 GPU instances
   sources = [
-    "source.amazon-ebs.al-x86_64-gpu-${var.channel}",
-    #"source.amazon-ebs.al-aarch64-gpu-${var.channel}"
+    "source.amazon-ebs.al-x86_64-gpu",
+    "source.amazon-ebs.al-aarch64-gpu"
   ]
 
   hcp_packer_registry {
@@ -120,7 +132,7 @@ build {
     // Feed a cheeky echo newline to the installer stdin to bypass this ugly.
     inline = [<<EOF
     sudo sh -c "yum install -y gcc kernel-devel ncurses clinfo vulkan"
-    curl -o nvidia.run https://us.download.nvidia.com/tesla/525.60.13/NVIDIA-Linux-x86_64-525.60.13.run
+    curl -o nvidia.run https://us.download.nvidia.com/tesla/525.60.13/NVIDIA-Linux-$(uname -m)-${var.nvidia_version}.run
     chmod +x nvidia.run
     sudo sh -c "echo | ./nvidia.run --ui=none -s -q -a"
     EOF
