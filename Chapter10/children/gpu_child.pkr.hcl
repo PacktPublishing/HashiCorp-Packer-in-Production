@@ -1,6 +1,16 @@
 // Extend our Amazon Linux base image for GPU workloads.
 // Use the al-latest bucket as ancestor.
-// We'll use Graviton aarch64 to save some costs over x86_64.
+// We'll enable Graviton aarch64 to save some costs over x86_64.
+
+// Ancestry requires a recent version of the AWS plugin.
+packer {
+  required_plugins {
+    amazon = {
+      version = ">= 1.1.6"
+      source  = "github.com/hashicorp/amazon"
+    }
+  }
+}
 
 // We're going to need HCP bucket often, so make it a variable.
 variable "hcp_bucket" {
