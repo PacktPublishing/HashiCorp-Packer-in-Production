@@ -1,4 +1,4 @@
-name: CI
+name: Self-Managed
 on:
   push:
     branches: [ "main" ]
