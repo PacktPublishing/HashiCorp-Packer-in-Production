@@ -2,7 +2,7 @@ name: Cloud-Managed
 on:
   push:
     branches: [ "main" ]
-  paths:
+    paths:
       - Chapter11/cloud-hosted/*
   workflow_dispatch:
 jobs:
