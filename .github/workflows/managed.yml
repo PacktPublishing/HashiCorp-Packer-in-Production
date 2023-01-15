@@ -29,4 +29,4 @@ jobs:
       - name: Run a multi-line script
         run: |
           pwd
-          apt-install packer
+          apt install packer
