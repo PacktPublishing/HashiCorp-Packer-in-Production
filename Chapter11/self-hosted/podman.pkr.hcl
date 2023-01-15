@@ -8,7 +8,7 @@ packer {
 }
 
 source "podman" "base_ubuntu" {
-  image = "ubuntu"
+  image = "ubuntu:latest"
   
   // Export or commit to local images
   export_path = "image.tar"
@@ -17,7 +17,7 @@ source "podman" "base_ubuntu" {
   #run_command = ["/usr/bin/nginx", "-d", "daemon", "off;"]
   
   # Platform(s) is actually not yet supported in the Podman plugin.
-  #platforms = ["amd64","arm64","riscv"]
+  platforms = ["amd64","arm64","riscv"]
 }
 
 build {
