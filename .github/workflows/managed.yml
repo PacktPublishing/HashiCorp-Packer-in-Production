@@ -1,4 +1,4 @@
-name: Cloud Managed
+name: Cloud-Managed
 on:
   push:
     branches: [ "main" ]
