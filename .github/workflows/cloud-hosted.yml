@@ -7,10 +7,10 @@ on:
   workflow_dispatch:
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: hashicorp/packer:latest
     steps:
       - uses: actions/checkout@v3
       - name: Run a multi-line script
         run: |
           pwd
-          apt install packer
+          packer build Chapter11/cloud-hosted/
