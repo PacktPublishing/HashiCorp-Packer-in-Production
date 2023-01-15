@@ -3,7 +3,7 @@ on:
   push:
     branches: [ "main" ]
   paths:
-      - Chapter11/cloud-hosted/**
+      - Chapter11/cloud-hosted/*
   workflow_dispatch:
 jobs:
   build:
