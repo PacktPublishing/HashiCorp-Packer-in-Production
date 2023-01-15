@@ -48,7 +48,7 @@ source "qemu" "ubuntu-lamp" {
 build {
   sources = [
     "qemu.fedora-lamp",
-    "qemu.ubuntu-lamp"
+    #"qemu.ubuntu-lamp"
     ]
 
   provisioner "shell" {
