@@ -1,7 +1,7 @@
 #### HashiCorp-Packer-in-Production
 John Boero. Published by Packt
 
-##Chapter 8: Scaling Large Builds
+## Chapter 8: Scaling Large Builds
 1. Speeding up your builds with parallel processes. 
 2. Preventing parallel processes from causing DoS. 
 3. Troubleshooting logs in a parallel world. 
