@@ -80,3 +80,10 @@ This repository contains sample code and Packer templates for the book HashiCorp
 3. Exploring GitLab CI pipeline support
 4. Using Vault integration for pipelines
 
+## Chapter 12: Developing Packer Plugins
+1. Basics of GoLang
+2. Sample plugin source
+3. Building and testing your plugin
+4. Protecting yourself from bad plugins
+
+Note: Chapter 12 requires its own dedicated GitHub repo: https://github.com/jboero/packer-plugin-nspawn
