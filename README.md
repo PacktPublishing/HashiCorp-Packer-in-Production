@@ -54,13 +54,13 @@ This repository contains sample code and Packer templates for the book HashiCorp
 5. Aggregation and branching out multiple pipelines
 
 ## Chapter 8: Scaling Large Builds
-1. Speeding up your builds with parallel processes. 
-2. Preventing parallel processes from causing DoS. 
-3. Troubleshooting logs in a parallel world. 
-4. Using image compression 
-5. Selecting a compression algorithm for Packer images 
-6. Selecting the right storage type for the image lifecycle 
-7. Delta and patch strategies 
+1. Speeding up your builds with parallel processes
+2. Preventing parallel processes from causing DoS
+3. Troubleshooting logs in a parallel world
+4. Using image compression
+5. Selecting a compression algorithm for Packer images
+6. Selecting the right storage type for the image lifecycle
+7. Delta and patch strategies
 
 ## Chapter 9: Managing Image Lifecycle
 1. Tracking image lifecycle 
@@ -68,11 +68,11 @@ This repository contains sample code and Packer templates for the book HashiCorp
 3. Creating a retention policy 
 
 ## Chapter 10: Using HCP Packer
-1. Creating an HCP Organization 
-2. Configuring HCP Packer in your templates. 
-3. Consuming HCP Packer from Terraform. 
-4. Using HCP Image Ancestry. 
-5. Exploring the HCP REST API. 
+1. Creating an HCP Organization
+2. Configuring HCP Packer in your templates
+3. Consuming HCP Packer from Terraform
+4. Using HCP Image Ancestry
+5. Exploring the HCP REST API
 
 ## Chapter 11: Automating Packer Builds
 1. Identifying common automation requirements
