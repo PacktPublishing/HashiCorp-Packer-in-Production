@@ -283,8 +283,12 @@ source "virtualbox-iso" "hello-base-windows-server" {
 }
 
 source "qemu" "base-aarch64" {
-  accelerator = "none"
+  # Use qemu_binary to specify different architectures.
+  # The binaries must be installed locally to use.
   qemu_binary = "qemu-system-aarch64"
+  
+  # When using alternative architectures turn off acceleration for full emulation.
+  accelerator = "none"
   machine_type = "virt"
   headless = true
   memory = 1024
