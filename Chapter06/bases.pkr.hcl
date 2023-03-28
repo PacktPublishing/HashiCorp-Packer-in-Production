@@ -6,10 +6,16 @@ packer {
 }
 
 locals {
-  vsphere_user  = vault("/secret/data/vsphere/creds", "user")
-  vsphere_pw    = vault("/secret/data/vsphere/creds", "password")
+  // Samples here for using vault.
+  // Commented out as the build may freeze and timeout if there is no Vault available.
+  # vsphere_user  = vault("/secret/data/vsphere/creds", "user")
+  # vsphere_pw    = vault("/secret/data/vsphere/creds", "password")
+  vsphere_user = "default"
+  vsphere_pw   = "default"
   rootpw        = uuidv4()
-  rnd           = vault("/sys/tools/random/32", "random_bytes")
+
+  // You can even get random data from Vault.
+  # rnd           = vault("/sys/tools/random/32", "random_bytes")
 }
 
 // Parameterize the CentOS Streams ISO
@@ -115,7 +121,7 @@ data "amazon-ami" "el9-amd64" {
   owners      = ["309956199498"]
 
   /** /
-  # Optional assume_role for data sources.
+  // Optional assume_role for data sources.
   assume_role {
     role_arn     = "arn:aws:iam::ACCOUNT_ID:role/ROLE_NAME"
     session_name = "SESSION_NAME"
@@ -168,7 +174,7 @@ source "azure-chroot" "gold_rhel9" {
 }
 
 source "googlecompute" "gold_rhel9" {
-  project_id = var.GCP_PROJECT
+  project_id = var.
   source_image = "rhel-9-v20220719"
   zone = "us-west1-a"
 
@@ -369,13 +375,17 @@ source "vsphere-iso" "gold_rhel9_latest" {
 // Define a build with our single source builder and two provisioners.
 build {
   sources = [
-    "sources.vsphere-iso.gold_rhel9_latest",
-    "sources.null.localhost",
     "sources.qemu.gold_centos9_latest",
-    "sources.amazon-ebs.gold_rhel9_latest",
-    "sources.googlecompute.gold_rhel9"
     ]
 
+  post-processor "googlecompute-export" {
+      paths = [
+        "gs://mybucket1/path/to/file1.tar.gz",
+        "gs://mybucket2/path/to/file2.tar.gz"
+      ]
+      keep_input_artifact = true
+    }
+    
   /*
   provisioner "file" {
     destination = "/etc/motd"
