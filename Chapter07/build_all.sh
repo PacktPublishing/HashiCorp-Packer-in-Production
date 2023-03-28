@@ -13,7 +13,7 @@ function build_dir()
         echo "SKIP ${PWD}/build.pkr.hcl not modified since last successful build."
     fi
 
-    find . -type d | xargs build_dir
+    find . -type d -maxdepth 1 | xargs build_dir
     popd
 }
 
