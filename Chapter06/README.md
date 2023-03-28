@@ -9,3 +9,5 @@ John Boero. Published by Packt
 5. Parallel builds
 6. CI testing against multiple OS releases
 7. Pitfalls and Tthings to Aavoid
+
+Note the build_all.sh script is included as an example but isn't meant to run in the base directory of this chapter.
