@@ -8,8 +8,11 @@ source "qemu" "fedora-lamp" {
   memory = 4096
   disk_size = "20G"
   disk_image = true
-  iso_url = "/tmp/Fedora-Cloud-Base-37-1.7.x86_64.qcow2"
-  iso_checksum = "none"
+  iso_urls = [
+    "/tmp/Fedora-Cloud-Base-37-1.7.x86_64.qcow2",
+    "https://download.fedoraproject.org/pub/fedora/linux/releases/37/Cloud/x86_64/images/Fedora-Cloud-Base-37-1.7.x86_64.qcow2",
+  ]
+  iso_checksum = "sha256:b5b9bec91eee65489a5745f6ee620573b23337cbb1eb4501ce200b157a01f3a0"
 
   net_device = "virtio-net"
   disk_interface = "virtio"
