@@ -12,6 +12,7 @@ source "podman" "base_ubuntu" {
   
   // Export or commit to local images
   export_path = "image.tar"
+  # Trigger a build
   #commit = true
 
   #run_command = ["/usr/bin/nginx", "-d", "daemon", "off;"]
