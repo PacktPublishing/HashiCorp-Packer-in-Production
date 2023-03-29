@@ -20,6 +20,7 @@ build:
   stage: deploy
   environment: production
   script:
+    - find Chapter11/self-hosted -maxdepth 1 -name '*.hcl' -or -name '*.pkr.json' | xargs -I{} packer init {}
     - find Chapter11/self-hosted -maxdepth 1 -name '*.hcl' | xargs -I{} packer build {}
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
