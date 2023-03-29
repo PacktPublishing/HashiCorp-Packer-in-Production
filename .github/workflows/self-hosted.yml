@@ -15,6 +15,7 @@ jobs:
           pwd
           packer version
           cd Chapter11/self-hosted
+          packer init .
           packer build .
         env:
           PACKER_LOG: 1
