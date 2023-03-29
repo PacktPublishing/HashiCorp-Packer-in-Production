@@ -9,8 +9,8 @@ before_script:
 stages:
   - validate
   - build
-    #- test
-    #- deploy
+  - test
+  - deploy
 validate:
   stage: validate
   script:
