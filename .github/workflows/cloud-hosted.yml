@@ -13,4 +13,5 @@ jobs:
       - name: Run a multi-line script
         run: |
           pwd
+          packer init Chapter11/cloud-hosted/
           packer build Chapter11/cloud-hosted/

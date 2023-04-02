@@ -14,12 +14,14 @@ stages:
 validate:
   stage: validate
   script:
-    - find . -maxdepth 1 -name '*.json' -or -name '*.pkr.json' -print0 | xargs -t0n1 packer validate
+    - find Chapter11/self-hosted -maxdepth 1 -name '*.hcl' -or -name '*.pkr.json' | xargs -I{} packer init {}
+    - find Chapter11/self-hosted -maxdepth 1 -name '*.hcl' -or -name '*.pkr.json' | xargs -I{} packer validate {}
 build:
   stage: deploy
   environment: production
   script:
-    - find . -maxdepth 1 -name '*.json' -print0 | xargs -t0n1 packer build
+    - find Chapter11/self-hosted -maxdepth 1 -name '*.hcl' -or -name '*.pkr.json' | xargs -I{} packer init {}
+    - find Chapter11/self-hosted -maxdepth 1 -name '*.hcl' | xargs -I{} packer build {}
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       when: manual
