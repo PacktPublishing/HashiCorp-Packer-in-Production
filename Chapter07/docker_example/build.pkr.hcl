@@ -27,12 +27,12 @@ build {
     inline = ["pzstd ./*.tar"]
   }
 
-  post-processors {
-    post-processor "docker-tag" {
+  // post-processors {
+  //  post-processor "docker-tag" {
       // Use the DOCKER_REGISTRY from common.hcl
-      repository =  "${var.DOCKER_REGISTRY}/${source.name}"
-      tags = [var.IMAGE_VERSION]
-    }
-    post-processor "docker-push" {}
-  }
+  //    repository =  "${var.DOCKER_REGISTRY}/${source.name}"
+  //    tags = [var.IMG_VERSION]
+  //  }
+  //  post-processor "docker-push" {}
+  //}
 }
