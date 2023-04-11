@@ -60,13 +60,13 @@ source "virtualbox-iso" "hello-base-streams-ovf" {
 
 source "qemu" "hello-base-streams" {
   accelerator = "kvm"
-  #headless = true
+  headless = true
   cpus = 4
   memory = 4096
   disk_size = "10G"
 
   iso_url      = var.streams_iso.url
-  #iso_checksum = var.streams_iso.shasum
+  iso_checksum = var.streams_iso.shasum
   output_directory = "/aux/qemu/packer"
   vm_name = "tdhtest"
   net_device = "virtio-net"
@@ -155,11 +155,11 @@ source "qemu" "base-aarch64" {
   memory = 1024
   disk_size = "10G"
   ssh_username = "root"
-  iso_url = "file:///aux/iso/Fedora-Server-35-1.2.aarch64.raw"
-  iso_checksum = "ba106246cf20f31d74ebcde486f9542367e05652572c1d19f811c88305c02411"
+  iso_url = "file:///aux/iso/Fedora-Server-KVM-37-1.7.aarch64.qcow2"
+  iso_checksum = "a1dc8444d7beef2afa2cc6ece8d2f92e537ae81b0206b6e3dcaac2702068394c"
   disk_image = true
-  net_device = "e1000"
-  output_filename = "base-aarch64.qcow2"
+  net_device = "virtio"
+  #output_filename = "base-aarch64.qcow2"
 
   qemuargs =[
     ["-S"],
@@ -193,7 +193,7 @@ build {
    #"source.virtualbox-iso.hello-base-streams",
    #"source.virtualbox-iso.hello-base-ubuntu",
    #"source.virtualbox-iso.hello-base-windows-server",
-   #"source.qemu.base-aarch64",
+   "source.qemu.base-aarch64",
    "source.qemu.hello-base-streams"
    ]
  provisioner "file" {
