@@ -48,7 +48,7 @@ We also provide a PDF file that has color images of the screenshots/diagrams use
 ### Related products
 * Learning DevOps - Second Edition [[Packt]](https://www.packtpub.com/product/learning-devops-second-edition/9781801818964?utm_source=github&utm_medium=repository&utm_campaign=9781801818964) [[Amazon]](https://www.amazon.com/dp/1801818967)
 
-* HashiCorp Infrastructure Automation Certification Guide [[Packt]](https://www.packtpub.com/product/hashicorp-infrastructure-automation-certification-guide/9781800565975?utm_source=github&utm_medium=repository&utm_campaign=9781800565975) [[Amazon]](https://www.amazon.com/dp/180056597
+* HashiCorp Infrastructure Automation Certification Guide [[Packt]](https://www.packtpub.com/product/hashicorp-infrastructure-automation-certification-guide/9781800565975?utm_source=github&utm_medium=repository&utm_campaign=9781800565975) [[Amazon]](https://www.amazon.com/dp/180056597)
 
 
 ## Chapter 1: Packer Fundamentals
