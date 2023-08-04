@@ -24,7 +24,7 @@ build {
   }
 
   post-processor "shell-local" {
-    inline = ["pzstd ./*.tar"]
+    inline = ["pzstd --force ./*.tar"]
   }
 
   // post-processors {
