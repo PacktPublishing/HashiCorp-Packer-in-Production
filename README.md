@@ -1,6 +1,3 @@
-
-<b><p align='center'>[![Packt Sale](https://static.packt-cdn.com/assets/images/image.jpeg)](https://www.packtpub.com/)</p></b>Get this book on sale at [Packt](https://www.packtpub.com/).
-
 # HashiCorp Packer in Production
 
 <a href="https://www.packtpub.com/product/hashicorp-packer-in-production/9781803246857?utm_source=github&utm_medium=repository&utm_campaign=9781786461629"><img src="https://content.packt.com/B18105/cover_image_small.jpg" alt="" height="256px" align="right"></a>
